@@ -9,7 +9,7 @@ def buscar_alunos(aluno_id, nome):
 
 
 
-
+#endpoint para adicionar um aluno
 @app.route('/adicionar_aluno', methods=['POST'])
 def adicionar_aluno():
     alunorm = request.args.get('alunorm')
@@ -20,7 +20,7 @@ def adicionar_aluno():
 
 
 
-
+#endpoint para listar todos os alunos
 @app.route('/listar_alunos', methods=['POST'])
 def listar_alunos(alunos):
     alunos = ["Christopher", "Daniel", "Davi", "Igor", "Emanuel", "Gabriel Dutra", "João Filipe", "Roger"]
@@ -32,6 +32,6 @@ def listar_alunos(alunos):
 
 
 
-
+# Rodar o aplicativo Flask
 if __name__ == '__main__':
     app.run(debug=True)
