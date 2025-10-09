@@ -16,16 +16,28 @@ def buscar_alunos(aluno_id, nome):
 def adicionar_aluno():
     id= request.args.get('id')
     nome = request.args.get('nome')
-    new = {"alunorm": id, "nome": nome}
-    new["alunorm"] = len(alunos) + 1
+    new = {"id": id, "nome": nome}
+    new["id"] = len(alunos) + 1
     alunos.append(new)
     return alunos
 
+#endpoint para remover um aluno por ID
+@app.route('/remover_aluno/<int:aluno_id>', methods=['DELETE'])
+def remover_aluno_por_id(aluno_id):
+    for aluno in alunos:
+        if aluno["alunorm"] == aluno_id:
+            alunos.remove(aluno)
+            return f"Aluno com ID {aluno_id} removido"
+    return "Aluno não encontrado"
+
+#endpoint para buscar um aluno por ID
 def buscar_aluno_por_id(aluno_id):
     for aluno in alunos:
         if aluno["alunorm"] == aluno_id:
             return aluno
     return "Aluno não encontrado"
+
+
 
 #endpoint para listar todos os alunos
 @app.route('/listar_alunos', methods=['POST'])
