@@ -14,9 +14,11 @@ def buscar_alunos(aluno_id, nome):
 #endpoint para adicionar um aluno
 @app.route('/adicionar_aluno', methods=['POST'])
 def adicionar_aluno():
-    id= request.args.get('id')
+    id = request.args.get('id')
     nome = request.args.get('nome')
-    new = {"id": id, "nome": nome}
+    idade = request.args.get('idade')
+    endereço = request.args.get('endereço')
+    new = {"id": id, "nome": nome, "idade": idade, "endereço": endereço}
     new["id"] = len(alunos) + 1
     alunos.append(new)
     return alunos
@@ -33,7 +35,7 @@ def remover_aluno_por_id(aluno_id):
 #endpoint para buscar um aluno por ID
 def buscar_aluno_por_id(aluno_id):
     for aluno in alunos:
-        if aluno["alunorm"] == aluno_id:
+        if aluno["id"] == aluno_id:
             return aluno
     return "Aluno não encontrado"
 
