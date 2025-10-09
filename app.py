@@ -23,7 +23,7 @@ def adicionar_aluno():
 
 @app.route('/listar_alunos', methods=['POST'])
 def listar_alunos(alunos):
-    alunos = ["Christopher", "Daniel", "Davi", "Igor"]
+    alunos = ["Christopher", "Daniel", "Davi", "Igor", "Emanuel", "Gabriel Dutra", "João Filipe", "Roger"]
     return f"Lista de alunos: {alunos}"
 
 
