@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -8,8 +8,8 @@ alunos =[
 
 #endpoint para buscar todos os alunos
 @app.route('/buscar_alunos/<int:aluno_id>/<string:nome>', methods=['GET'])
-def buscar_alunos(aluno_id, nome):
-    return f"O aluno: {nome}, do ID: {aluno_id}, foi encontrado"
+def buscar_alunos(id, nome):
+    return f"O aluno: {nome}, do ID: {id}, foi encontrado"
 
 #endpoint para adicionar um aluno
 @app.route('/adicionar_aluno', methods=['POST'])
@@ -39,6 +39,14 @@ def buscar_aluno_por_id(aluno_id):
             return aluno
     return "Aluno não encontrado"
 
+@app.route('/alterar_aluno/<int:aluno_id>', methods=['UPDATE'])
+def alterar_aluno(aluno_id):
+    for alunos in alunos:
+        if alunos["id"] == aluno_id:
+            alunos["nome"] = request.args.get('nome', alunos["nome"])
+            alunos["idade"] = request.args.get('idade', alunos["idade"])
+            alunos["endereço"] = request.args.get('endereço', alunos["endereço"])
+            return f"Aluno com ID {aluno_id} alterado"
 
 
 #endpoint para listar todos os alunos
