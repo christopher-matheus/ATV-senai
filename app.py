@@ -3,8 +3,8 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 alunos =[
-    {"id": 1, "nome": "João"},
-    {"id": 2, "nome": "Maria"}]
+    {"id": 1, "nome": "João", "idade": 23, "endereço": "Rua A, 123"},
+    {"id": 2, "nome": "Maria", "idade": 22, "endereço": "Rua B, 456"},]
 
 #endpoint para buscar todos os alunos
 @app.route('/buscar_alunos/<int:aluno_id>/<string:nome>', methods=['GET'])
