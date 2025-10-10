@@ -25,28 +25,31 @@ def adicionar_aluno():
 
 #endpoint para remover um aluno por ID
 @app.route('/remover_aluno/<int:aluno_id>', methods=['DELETE'])
-def remover_aluno_por_id(aluno_id):
+def remover_aluno_por_id(id):
     for aluno in alunos:
-        if aluno["alunorm"] == aluno_id:
+        if aluno["id"] == id:
             alunos.remove(aluno)
-            return f"Aluno com ID {aluno_id} removido"
+            return f"Aluno com ID {id} removido"
     return "Aluno não encontrado"
 
 #endpoint para buscar um aluno por ID
-def buscar_aluno_por_id(aluno_id):
+def buscar_aluno_por_id(id):
     for aluno in alunos:
-        if aluno["id"] == aluno_id:
+        if aluno["id"] == id:
             return aluno
     return "Aluno não encontrado"
 
-@app.route('/alterar_aluno/<int:aluno_id>', methods=['UPDATE'])
-def alterar_aluno(aluno_id):
-    for alunos in alunos:
-        if alunos["id"] == aluno_id:
-            alunos["nome"] = request.args.get('nome', alunos["nome"])
-            alunos["idade"] = request.args.get('idade', alunos["idade"])
-            alunos["endereço"] = request.args.get('endereço', alunos["endereço"])
-            return f"Aluno com ID {aluno_id} alterado"
+@app.route('/alterar_aluno/<int:aluno_id>', methods=['PUT'])
+def alterar_aluno():
+    alterado = request.get_json()
+    for i, aluno in enumerate(alunos):
+        if aluno["id"] == alterado["id"]:
+            alunos[i] = alterado
+            alunos.pop(i)
+            alunos.append(alterado)
+            return alunos
+    return "Aluno não encontrado"
+    
 
 
 #endpoint para listar todos os alunos
